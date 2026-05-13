@@ -1,5 +1,10 @@
 # Le Semi des Quais de Seine - Site Vitrine
 
+[![GitHub](https://img.shields.io/badge/GitHub-TheoISEP%2Fsemi--quais--seine-blue?logo=github)](https://github.com/TheoISEP/semi-quais-seine)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FTheoISEP%2Fsemi-quais-seine)
+[![Next.js](https://img.shields.io/badge/Next.js-16.2.6-black?logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?logo=typescript)](https://www.typescriptlang.org/)
+
 Site web officiel de la première édition du Semi des Quais de Seine (Mars 2027).
 
 ## 📋 Vue d'ensemble
