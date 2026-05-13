@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="48" fill="#0A2540" stroke="#D4A574" stroke-width="2"/>
+
+  <!-- Seine waves -->
+  <path d="M20 70 Q30 68 40 70 T60 70 T80 70" stroke="#5B9BD5" stroke-width="2" fill="none"/>
+  <path d="M20 75 Q30 73 40 75 T60 75 T80 75" stroke="#5B9BD5" stroke-width="1.5" fill="none" opacity="0.7"/>
+
+  <!-- Bridge simplified -->
+  <path d="M15 45 L85 45" stroke="#5B9BD5" stroke-width="3" stroke-linecap="round"/>
+  <path d="M25 45 L25 55" stroke="#5B9BD5" stroke-width="2"/>
+  <path d="M50 45 L50 55" stroke="#5B9BD5" stroke-width="2"/>
+  <path d="M75 45 L75 55" stroke="#5B9BD5" stroke-width="2"/>
+
+  <!-- Runners silhouettes -->
+  <g fill="#D4A574">
+    <!-- Runner 1 -->
+    <circle cx="42" cy="33" r="3"/>
+    <path d="M42 36 L42 45 M42 40 L38 43 M42 40 L46 43 M42 45 L39 52 M42 45 L45 52"/>
+
+    <!-- Runner 2 -->
+    <circle cx="58" cy="33" r="3"/>
+    <path d="M58 36 L58 45 M58 40 L54 43 M58 40 L62 43 M58 45 L55 52 M58 45 L61 52"/>
+  </g>
+
+  <!-- Path/road -->
+  <path d="M30 55 Q40 58 50 55 T70 55" stroke="#D4A574" stroke-width="2.5" fill="none" opacity="0.6"/>
+</svg>
