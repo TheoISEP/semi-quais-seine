@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import WhyParticipate from "@/components/WhyParticipate";
 import Parcours from "@/components/Parcours";
+import WhyParticipate from "@/components/WhyParticipate";
 import Countdown from "@/components/Countdown";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
@@ -51,8 +51,8 @@ export default function Home() {
       <Header />
       <main className="min-h-screen">
         <Hero />
-        <WhyParticipate />
         <Parcours />
+        <WhyParticipate />
         <Countdown />
         <FAQ />
         <Footer />

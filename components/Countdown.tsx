@@ -64,38 +64,11 @@ export default function Countdown() {
           className="text-center mb-12"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Plus que quelques jours...
+            Plus que quelques mois...
           </h2>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
             Le compte à rebours est lancé jusqu'à la première édition du Semi des Quais de Seine
           </p>
-        </motion.div>
-
-        {/* Countdown Display */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-4xl mx-auto mb-12"
-        >
-          {timeUnits.map((unit, index) => (
-            <motion.div
-              key={unit.label}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-              className="relative"
-            >
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/20 hover:bg-white/20 transition-colors duration-300">
-                <div className="text-4xl md:text-6xl font-bold text-gold mb-2">
-                  {String(unit.value).padStart(2, "0")}
-                </div>
-                <div className="text-sm md:text-base text-gray-300 uppercase tracking-wider">
-                  {unit.label}
-                </div>
-              </div>
-            </motion.div>
-          ))}
         </motion.div>
 
         {/* Date announcement */}
