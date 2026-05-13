@@ -33,14 +33,17 @@ function doPost(e) {
     // Open the spreadsheet
     const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
 
-    // Check if email already exists
-    const existingEmails = sheet.getRange(2, 1, sheet.getLastRow() - 1, 1).getValues();
-    const emailExists = existingEmails.some(row => row[0] === email);
+    // Check if email already exists (skip header row)
+    const lastRow = sheet.getLastRow();
+    if (lastRow > 1) {
+      const existingEmails = sheet.getRange(2, 1, lastRow - 1, 1).getValues();
+      const emailExists = existingEmails.some(row => row[0] === email);
 
-    if (emailExists) {
-      return ContentService.createTextOutput(
-        JSON.stringify({ success: false, message: "Email already exists" })
-      ).setMimeType(ContentService.MimeType.JSON);
+      if (emailExists) {
+        return ContentService.createTextOutput(
+          JSON.stringify({ success: false, message: "Email already exists" })
+        ).setMimeType(ContentService.MimeType.JSON);
+      }
     }
 
     // Append the new row
