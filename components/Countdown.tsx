@@ -63,10 +63,10 @@ export default function Countdown() {
           transition={{ duration: 0.8 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-6xl md:text-7xl lg:text-8xl font-bold mb-6 text-shadow-brutal">
             Plus que quelques mois...
           </h2>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+          <p className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto">
             Le compte à rebours est lancé jusqu'à la première édition du Semi des Quais de Seine
           </p>
         </motion.div>
@@ -100,11 +100,11 @@ export default function Countdown() {
           className="max-w-2xl mx-auto"
         >
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-            <h3 className="text-2xl font-bold text-center mb-4">
+            <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4">
               Ne manquez pas l'ouverture des inscriptions
             </h3>
-            <p className="text-center text-gray-300 mb-6">
-              Recevez votre <strong className="text-gold">code promo -10%</strong> dès l'annonce de la date
+            <p className="text-center text-gray-300 mb-6 text-lg md:text-xl">
+              Recevez votre <strong className="text-gradient-gold">code promo -10%</strong> dès l&apos;annonce de la date
             </p>
             <EmailForm variant="footer" />
           </div>

@@ -47,11 +47,11 @@ export default function Parcours() {
           transition={{ duration: 0.8 }}
           className="text-center mb-8 md:mb-16"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-navy-dark mb-3 md:mb-4">
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-navy-dark mb-4 md:mb-6">
             Le Parcours
           </h2>
-          <div className="w-20 md:w-24 h-1 bg-gold mx-auto mb-4 md:mb-6"></div>
-          <p className="text-base md:text-lg lg:text-xl text-gray-700 max-w-3xl mx-auto px-2">
+          <div className="w-24 md:w-32 h-1.5 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 md:mb-8"></div>
+          <p className="text-lg md:text-xl lg:text-2xl text-gray-700 max-w-3xl mx-auto px-2 font-medium">
             Un parcours exceptionnel le long des quais de la Seine, de Bezons jusqu'à La Frette-sur-Seine, en passant par Carrières-sur-Seine, Chatou, Le Vésinet, Le Pecq et Sartrouville.
             Choisissez votre distance et préparez-vous à vivre une expérience inoubliable.
           </p>
@@ -84,8 +84,8 @@ export default function Parcours() {
               <div className="absolute top-3 right-3 md:top-4 md:right-4 text-4xl md:text-6xl font-bold opacity-20">
                 {distance.distance.split(" ")[0]}
               </div>
-              <h3 className="text-2xl md:text-3xl font-bold mb-2">{distance.name}</h3>
-              <p className="text-3xl md:text-4xl font-bold text-gold mb-3 md:mb-4">{distance.distance}</p>
+              <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2">{distance.name}</h3>
+              <p className="text-5xl md:text-6xl lg:text-7xl font-bold text-gradient-gold mb-3 md:mb-4" style={{ fontFamily: 'var(--font-bebas)' }}>{distance.distance}</p>
               <p className="text-base md:text-lg mb-4 md:mb-6 opacity-90">{distance.description}</p>
               <ul className="space-y-2">
                 {distance.features.map((feature, idx) => (
@@ -122,8 +122,8 @@ export default function Parcours() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <div className="text-center">
               <div className="w-16 h-16 bg-gold rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6z" />
+                <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 3v18l4-4 4 4 4-4 4 4V3M3 11h18" />
                 </svg>
               </div>
               <h4 className="font-bold text-navy-dark mb-2">Départ du semi-marathon</h4>
@@ -131,8 +131,8 @@ export default function Parcours() {
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-blue-light rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 10-2 0v1H8a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V9z" clipRule="evenodd" />
+                <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 3v18l6-3 6 3V3" />
                 </svg>
               </div>
               <h4 className="font-bold text-navy-dark mb-2">Départ du 10 km</h4>
@@ -140,8 +140,9 @@ export default function Parcours() {
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-navy-dark rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clipRule="evenodd" />
+                <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M5 3h14v2h-2v14h-2V5H9v14H7V5H5V3zm7 16h2v2h-2v-2z"/>
+                  <path d="M6 5h2v2H6V5zm0 4h2v2H6V9zm0 4h2v2H6v-2zm10-8h2v2h-2V5zm0 4h2v2h-2V9zm0 4h2v2h-2v-2z"/>
                 </svg>
               </div>
               <h4 className="font-bold text-navy-dark mb-2">Arrivée</h4>

@@ -47,17 +47,19 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 md:mb-6"
+            className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl text-white mb-4 md:mb-8 text-shadow-brutal px-2"
+            style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.08em', lineHeight: '1.1' }}
           >
-            Le Semi des
-            <span className="block text-gold">Quais de Seine</span>
+            <span className="block sm:whitespace-nowrap">Le Semi des</span>
+            <span className="block sm:whitespace-nowrap text-gradient-gold text-[0.9em]">Quais de Seine</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-lg md:text-xl lg:text-2xl text-gray-200 mb-3 md:mb-4"
+            className="text-2xl md:text-3xl lg:text-5xl text-gray-200 mb-3 md:mb-4 font-semibold"
+            style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.05em' }}
           >
             Première édition • Mars 2027
           </motion.p>

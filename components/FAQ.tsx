@@ -97,11 +97,11 @@ export default function FAQ() {
           transition={{ duration: 0.8 }}
           className="text-center mb-8 md:mb-16"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-navy-dark mb-3 md:mb-4">
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-navy-dark mb-4 md:mb-6">
             Questions fréquentes
           </h2>
-          <div className="w-20 md:w-24 h-1 bg-gold mx-auto mb-4 md:mb-6"></div>
-          <p className="text-base md:text-lg lg:text-xl text-gray-700 max-w-3xl mx-auto px-2">
+          <div className="w-24 md:w-32 h-1.5 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 md:mb-8"></div>
+          <p className="text-lg md:text-xl lg:text-2xl text-gray-700 max-w-3xl mx-auto px-2 font-medium">
             Vous avez des questions ? Nous avons les réponses !
           </p>
         </motion.div>

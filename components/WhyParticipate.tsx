@@ -108,11 +108,11 @@ export default function WhyParticipate() {
           transition={{ duration: 0.8 }}
           className="text-center mb-8 md:mb-16"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-navy-dark mb-3 md:mb-4">
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-navy-dark mb-4 md:mb-6">
             Pourquoi participer ?
           </h2>
-          <div className="w-20 md:w-24 h-1 bg-gold mx-auto mb-4 md:mb-6"></div>
-          <p className="text-base md:text-lg lg:text-xl text-gray-700 max-w-3xl mx-auto px-2">
+          <div className="w-24 md:w-32 h-1.5 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 md:mb-8"></div>
+          <p className="text-lg md:text-xl lg:text-2xl text-gray-700 max-w-3xl mx-auto px-2 font-medium">
             Le Semi des Quais de Seine, c&apos;est bien plus qu&apos;une course.
             C&apos;est une expérience sportive inoubliable au cœur de l&apos;Île-de-France.
           </p>
@@ -131,12 +131,12 @@ export default function WhyParticipate() {
           className="mt-8 md:mt-16 text-center"
         >
           <div className="inline-block bg-white rounded-xl md:rounded-2xl shadow-lg p-6 md:p-8 max-w-2xl mx-4">
-            <h3 className="text-xl md:text-2xl font-bold text-navy-dark mb-3 md:mb-4">
+            <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-navy-dark mb-3 md:mb-4">
               Prêt à relever le défi ?
             </h3>
-            <p className="text-base md:text-lg text-gray-700 mb-4 md:mb-6">
+            <p className="text-lg md:text-xl text-gray-700 mb-4 md:mb-6">
               Inscrivez-vous à notre newsletter pour être informé en avant-première
-              de l&apos;ouverture des inscriptions et bénéficiez de <strong className="text-gold">10% de réduction</strong> sur votre dossard !
+              de l&apos;ouverture des inscriptions et bénéficiez de <strong className="text-gradient-fire">10% de réduction</strong> sur votre dossard !
             </p>
             <div className="max-w-lg mx-auto">
               {/* EmailForm will be added here via page.tsx */}
