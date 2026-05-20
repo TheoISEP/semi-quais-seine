@@ -120,7 +120,7 @@ export default function FAQ() {
         >
           <p className="text-gray-700 mb-4">Une autre question ?</p>
           <p className="text-gray-600">
-            D'autres informations seront communiquées prochainement. Inscrivez-vous à notre
+            D&apos;autres informations seront communiquées prochainement. Inscrivez-vous à notre
             newsletter pour ne rien manquer !
           </p>
         </motion.div>

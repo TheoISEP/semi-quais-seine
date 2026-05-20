@@ -54,9 +54,9 @@ export default function EmailForm({ variant = "inline", className = "" }: EmailF
   const isFooter = variant === "footer";
 
   return (
-    <div className={`${className} ${isHero ? "max-w-lg mx-auto" : ""}`}>
+    <div className={`w-full ${className}`}>
       <form onSubmit={handleSubmit} className="w-full">
-        <div className="flex flex-col sm:flex-row gap-3">
+        <div className={`flex ${isHero ? "flex-col sm:flex-row" : "flex-col sm:flex-row"} gap-4 ${isHero ? "justify-center" : ""}`}>
           <input
             type="email"
             value={email}
@@ -64,17 +64,25 @@ export default function EmailForm({ variant = "inline", className = "" }: EmailF
             placeholder="Votre adresse email"
             required
             disabled={status === "loading" || status === "success"}
-            className={`flex-1 px-4 py-3 rounded-lg border-2 border-gray-300 focus:border-gold focus:outline-none transition-colors bg-white text-gray-900 placeholder-gray-500 ${
+            className={`${isHero ? "flex-1 max-w-md" : "flex-1"} ${
+              isHero ? "px-6 py-4 md:py-5" : "px-4 py-3"
+            } rounded-2xl border-2 ${
+              isHero ? "bg-white/95 backdrop-blur-sm border-white/40" : "border-gray-300 bg-white"
+            } focus:outline-none transition-colors text-gray-900 placeholder-gray-500 ${
               isHero ? "text-base md:text-lg" : "text-base"
-            } ${status === "success" ? "bg-green-50" : ""}`}
+            } ${status === "success" ? "bg-green-50" : ""} ${
+              isHero ? "focus:border-white" : "focus:border-primary"
+            }`}
           />
           <motion.button
             type="submit"
             disabled={status === "loading" || status === "success"}
             whileHover={{ scale: status === "loading" || status === "success" ? 1 : 1.05 }}
             whileTap={{ scale: status === "loading" || status === "success" ? 1 : 0.95 }}
-            className={`px-6 py-3 rounded-lg font-semibold transition-all whitespace-nowrap ${
-              isHero || isFooter
+            className={`${isHero ? "px-10 py-4 md:px-14 md:py-5" : "px-6 py-3"} rounded-2xl font-semibold transition-all whitespace-nowrap ${
+              isHero
+                ? "bg-gold hover:bg-gold-light text-navy-dark"
+                : isFooter
                 ? "bg-gold hover:bg-gold-light text-navy-dark"
                 : "bg-navy-dark hover:bg-navy-medium text-white"
             } ${
@@ -101,15 +109,15 @@ export default function EmailForm({ variant = "inline", className = "" }: EmailF
       )}
 
       {status === "idle" && variant === "hero" && (
-        <div className="mt-4 bg-white/95 backdrop-blur-sm border-2 border-gold rounded-lg p-3 md:p-4 shadow-lg">
-          <p className="text-navy-dark text-sm md:text-base font-semibold flex items-center justify-center gap-1.5 md:gap-2 flex-wrap">
-            <span className="flex items-center gap-1">
-              <svg className="w-4 h-4 md:w-5 md:h-5 text-gold flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M5 5a3 3 0 015-2.236A3 3 0 0114.83 6H16a2 2 0 110 4h-5V9a1 1 0 10-2 0v1H4a2 2 0 110-4h1.17C5.06 5.687 5 5.35 5 5zm4 1V5a1 1 0 10-1 1h1zm3 0a1 1 0 10-1-1v1h1z" clipRule="evenodd" />
-                <path d="M9 11H3v5a2 2 0 002 2h4v-7zM11 18h4a2 2 0 002-2v-5h-6v7z" />
-              </svg>
+        <div className="mt-4">
+          <p className="text-xs md:text-sm flex items-center justify-center gap-2 text-white/70">
+            <svg className="w-4 h-4 md:w-5 md:h-5 text-gold flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M5 5a3 3 0 015-2.236A3 3 0 0114.83 6H16a2 2 0 110 4h-5V9a1 1 0 10-2 0v1H4a2 2 0 110-4h1.17C5.06 5.687 5 5.35 5 5zm4 1V5a1 1 0 10-1 1h1zm3 0a1 1 0 10-1-1v1h1z" clipRule="evenodd" />
+              <path d="M9 11H3v5a2 2 0 002 2h4v-7zM11 18h4a2 2 0 002-2v-5h-6v7z" />
+            </svg>
+            <span className="whitespace-nowrap">
+              Remise <span className="text-sm md:text-base text-gold font-bold">-10%</span> dès l&apos;inscription
             </span>
-            <span>Bénéficiez d&apos;une remise de <span className="text-red-600 font-bold text-base md:text-lg">-10%</span></span>
           </p>
         </div>
       )}

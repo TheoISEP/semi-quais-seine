@@ -52,7 +52,7 @@ export default function Parcours() {
           </h2>
           <div className="w-24 md:w-32 h-1.5 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 md:mb-8"></div>
           <p className="text-lg md:text-xl lg:text-2xl text-gray-700 max-w-3xl mx-auto px-2 font-medium">
-            Un parcours exceptionnel le long des quais de la Seine, de Bezons jusqu'à La Frette-sur-Seine, en passant par Carrières-sur-Seine, Chatou, Le Vésinet, Le Pecq et Sartrouville.
+            Un parcours exceptionnel le long des quais de la Seine, de Bezons jusqu&apos;à La Frette-sur-Seine, en passant par Carrières-sur-Seine, Chatou, Le Vésinet, Le Pecq et Sartrouville.
             Choisissez votre distance et préparez-vous à vivre une expérience inoubliable.
           </p>
         </motion.div>
@@ -78,7 +78,7 @@ export default function Parcours() {
               className={`relative bg-gradient-to-br ${
                 distance.color === "navy-dark"
                   ? "from-navy-dark to-navy-medium"
-                  : "from-blue-light to-blue-light/80"
+                  : "from-seine-blue to-seine-dark"
               } text-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-2xl transition-shadow duration-300`}
             >
               <div className="absolute top-3 right-3 md:top-4 md:right-4 text-4xl md:text-6xl font-bold opacity-20">
@@ -130,7 +130,7 @@ export default function Parcours() {
               <p className="text-gray-700">Pont de Bezons</p>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 bg-blue-light rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-seine-blue rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 3v18l6-3 6 3V3" />
                 </svg>

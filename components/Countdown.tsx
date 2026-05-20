@@ -67,7 +67,7 @@ export default function Countdown() {
             Plus que quelques mois...
           </h2>
           <p className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto">
-            Le compte à rebours est lancé jusqu'à la première édition du Semi des Quais de Seine
+            Le compte à rebours est lancé jusqu&apos;à la première édition du Semi des Quais de Seine
           </p>
         </motion.div>
 
@@ -101,7 +101,7 @@ export default function Countdown() {
         >
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
             <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4">
-              Ne manquez pas l'ouverture des inscriptions
+              Ne manquez pas l&apos;ouverture des inscriptions
             </h3>
             <p className="text-center text-gray-300 mb-6 text-lg md:text-xl">
               Recevez votre <strong className="text-gradient-gold">code promo -10%</strong> dès l&apos;annonce de la date

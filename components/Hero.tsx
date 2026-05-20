@@ -18,99 +18,119 @@ export default function Hero() {
           placeholder="blur"
           blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-navy-dark/80 via-navy-dark/60 to-navy-dark/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-navy-dark/85 via-navy-dark/70 to-navy-dark/85" />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 py-12 md:py-20 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="max-w-4xl mx-auto pt-24 md:pt-32"
-        >
-          {/* Discount Badge */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16 py-32 md:py-40">
+        <div className="flex flex-col items-center text-center">
+          {/* Titre principal */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="inline-flex items-center gap-1.5 md:gap-2 bg-red-500 text-white px-4 py-2 md:px-6 md:py-3 rounded-full mb-4 md:mb-6 shadow-2xl animate-pulse"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="mb-8 md:mb-10 w-full"
           >
-            <svg className="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M5 5a3 3 0 015-2.236A3 3 0 0114.83 6H16a2 2 0 110 4h-5V9a1 1 0 10-2 0v1H4a2 2 0 110-4h1.17C5.06 5.687 5 5.35 5 5zm4 1V5a1 1 0 10-1 1h1zm3 0a1 1 0 10-1-1v1h1z" clipRule="evenodd" />
-              <path d="M9 11H3v5a2 2 0 002 2h4v-7zM11 18h4a2 2 0 002-2v-5h-6v7z" />
-            </svg>
-            <span className="font-bold text-sm md:text-lg">OFFRE 1ère édition : -10% !</span>
+            <h1 className="display-mega text-white text-shadow-brutal leading-[0.9]">
+              <span className="block">LE SEMI DES</span>
+              <span className="block text-gradient-seine">QUAIS DE SEINE</span>
+            </h1>
           </motion.div>
 
-          <motion.h1
+          {/* Sous-titre */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-2xl md:text-4xl lg:text-5xl text-white font-bold mb-6 md:mb-8 uppercase tracking-wider font-bebas"
+          >
+            <span className="text-gradient-gold">Première édition</span> • Mars 2027
+          </motion.p>
+
+          {/* Description */}
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl text-white mb-4 md:mb-8 text-shadow-brutal px-2"
-            style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.08em', lineHeight: '1.1' }}
+            className="text-lg md:text-xl lg:text-2xl text-gray-200 mb-12 md:mb-16 max-w-4xl mx-auto px-4"
           >
-            <span className="block sm:whitespace-nowrap">Le Semi des</span>
-            <span className="block sm:whitespace-nowrap text-gradient-gold text-[0.9em]">Quais de Seine</span>
-          </motion.h1>
+            Vivez une expérience unique le long des quais de la Seine.<br/>
+            <span className="font-bold">Semi-marathon (21,1 km)</span> ou <span className="font-bold">10 km</span>
+          </motion.p>
 
-          <motion.p
+          {/* Formulaire email */}
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-2xl md:text-3xl lg:text-5xl text-gray-200 mb-3 md:mb-4 font-semibold"
-            style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.05em' }}
-          >
-            Première édition • Mars 2027
-          </motion.p>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-base md:text-lg lg:text-xl text-gray-300 mb-8 md:mb-12 max-w-2xl mx-auto px-4"
-          >
-            Vivez une expérience unique le long des quais de la Seine.
-            <br className="hidden sm:block" />
-            Semi-marathon (21,1 km) ou 10 km, choisissez votre défi.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            className="w-full max-w-3xl mx-auto mb-12 md:mb-16 px-4"
             id="inscription"
           >
-            <EmailForm variant="hero" className="mb-8" />
+            <EmailForm variant="hero" />
           </motion.div>
 
+          {/* Feature cards - Hidden on mobile */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center text-white text-sm md:text-base"
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="hidden md:block w-full max-w-6xl mx-auto px-4"
           >
-            <div className="flex items-center gap-2">
-              <svg className="w-5 h-5 md:w-6 md:h-6 text-gold flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
-                <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd"/>
-              </svg>
-              <span>Parcours exceptionnel</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-5 h-5 md:w-6 md:h-6 text-gold flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd"/>
-              </svg>
-              <span>Accessible depuis Paris</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-5 h-5 md:w-6 md:h-6 text-gold flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
-              </svg>
-              <span>Ambiance conviviale</span>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+              {/* Card 1 */}
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 md:p-10 border border-white/20 hover:bg-white/20 transition-all"
+              >
+                <div className="flex flex-col items-center gap-5 text-center">
+                  <div className="bg-gold p-5 rounded-full shadow-lg">
+                    <svg className="w-8 h-8 md:w-10 md:h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                      <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd"/>
+                    </svg>
+                  </div>
+                  <span className="text-white font-semibold text-sm md:text-lg leading-tight">
+                    Parcours exceptionnel
+                  </span>
+                </div>
+              </motion.div>
+
+              {/* Card 2 */}
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 md:p-10 border border-white/20 hover:bg-white/20 transition-all"
+              >
+                <div className="flex flex-col items-center gap-5 text-center">
+                  <div className="bg-seine-blue p-5 rounded-full shadow-lg">
+                    <svg className="w-8 h-8 md:w-10 md:h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd"/>
+                    </svg>
+                  </div>
+                  <span className="text-white font-semibold text-sm md:text-lg leading-tight">
+                    Accessible depuis Paris
+                  </span>
+                </div>
+              </motion.div>
+
+              {/* Card 3 */}
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 md:p-10 border border-white/20 hover:bg-white/20 transition-all"
+              >
+                <div className="flex flex-col items-center gap-5 text-center">
+                  <div className="bg-gold p-5 rounded-full shadow-lg">
+                    <svg className="w-8 h-8 md:w-10 md:h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
+                    </svg>
+                  </div>
+                  <span className="text-white font-semibold text-sm md:text-lg leading-tight">
+                    Ambiance conviviale
+                  </span>
+                </div>
+              </motion.div>
             </div>
           </motion.div>
-        </motion.div>
+        </div>
 
         {/* Scroll indicator */}
         <motion.div
