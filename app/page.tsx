@@ -18,10 +18,10 @@ export default function Home() {
     "@type": "SportsEvent",
     name: "Semi des Quais de Seine",
     description:
-      "Premiere edition du Semi des Quais de Seine en mars 2027. Course semi-marathon 21,1 km et 10 km.",
+      "Premiere edition du Semi des Quais de Seine le dimanche 28 février 2027. Course semi-marathon 21,1 km et 10 km.",
     eventStatus: "https://schema.org/EventScheduled",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-    startDate: "2027-03-01T09:00:00+01:00",
+    startDate: "2027-02-28T09:00:00+01:00",
     image: [`${siteUrl}/images/logo.png`],
     url: siteUrl,
     location: {

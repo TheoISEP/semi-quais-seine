@@ -9,8 +9,8 @@ export default function Countdown() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  // Target date: March 1, 2027
-  const targetDate = new Date("2027-03-01T09:00:00").getTime();
+  // Target date: February 28, 2027
+  const targetDate = new Date("2027-02-28T09:00:00").getTime();
 
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
@@ -71,6 +71,31 @@ export default function Countdown() {
           </p>
         </motion.div>
 
+        {/* Countdown digits */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="grid grid-cols-4 gap-3 md:gap-6 max-w-3xl mx-auto mb-12"
+        >
+          {timeUnits.map((unit) => (
+            <div
+              key={unit.label}
+              className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl py-5 md:py-8 text-center"
+            >
+              <div
+                className="text-4xl md:text-6xl lg:text-7xl leading-none text-gradient-gold tabular-nums"
+                style={{ fontFamily: "var(--font-bebas)" }}
+              >
+                {String(unit.value).padStart(2, "0")}
+              </div>
+              <div className="mt-2 text-xs md:text-sm uppercase tracking-wider text-gray-300">
+                {unit.label}
+              </div>
+            </div>
+          ))}
+        </motion.div>
+
         {/* Date announcement */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -83,12 +108,12 @@ export default function Countdown() {
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
               </svg>
-              <span>Mars 2027 • Date précise à venir</span>
+              <span>Dimanche 28 février 2027 • Départ 9h00</span>
             </p>
           </div>
           <p className="text-gray-300 max-w-2xl mx-auto">
-            La date exacte de la course sera annoncée prochainement.
-            Inscrivez-vous à notre newsletter pour être informé en priorité !
+            Rendez-vous le dimanche 28 février 2027 sur les quais de Seine.
+            Inscrivez-vous à notre newsletter pour être informé en priorité de l&apos;ouverture des inscriptions !
           </p>
         </motion.div>
 
@@ -104,7 +129,7 @@ export default function Countdown() {
               Ne manquez pas l&apos;ouverture des inscriptions
             </h3>
             <p className="text-center text-gray-300 mb-6 text-lg md:text-xl">
-              Recevez votre <strong className="text-gradient-gold">code promo -10%</strong> dès l&apos;annonce de la date
+              Recevez votre <strong className="text-gradient-gold">code promo -10%</strong> dès l&apos;ouverture des inscriptions
             </p>
             <EmailForm variant="footer" />
           </div>

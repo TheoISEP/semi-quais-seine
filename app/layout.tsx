@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     template: "%s | Semi des Quais de Seine",
   },
   description:
-    "Le Semi des Quais de Seine arrive en mars 2027 : semi-marathon 21,1 km et 10 km le long de la Seine. Inscrivez-vous pour etre informe et profiter de -10%.",
+    "Le Semi des Quais de Seine arrive le 28 février 2027 : semi-marathon 21,1 km et 10 km le long de la Seine. Inscrivez-vous pour etre informe et profiter de -10%.",
   keywords: [
     "semi des quais de seine",
     "semi marathon des quais de seine",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Semi des Quais de Seine 2027",
     description:
-      "Semi-marathon 21,1 km et course 10 km le long des quais de la Seine en mars 2027. Inscriptions et offre de lancement -10%.",
+      "Semi-marathon 21,1 km et course 10 km le long des quais de la Seine le 28 février 2027. Inscriptions et offre de lancement -10%.",
     type: "website",
     locale: "fr_FR",
     url: "/",
