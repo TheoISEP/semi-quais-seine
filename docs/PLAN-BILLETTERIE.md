@@ -67,7 +67,7 @@ lib/
 prisma/
   schema.prisma, migrations/
 scripts/
-  bootstrap-admin.ts            crée l'unique compte admin (protégé par SETUP_SECRET)
+  bootstrap-admin.ts            crée l'unique compte admin (npm run admin:create)
   import-preregistrations.ts    importe l'export CSV du Google Sheet
 ```
 
@@ -190,7 +190,7 @@ Mise en place côté AWS (à faire tôt, l'approbation prend 24 à 48 h) :
 | Phase | Contenu | Durée | Variables Vercel à poser **avant** le déploiement de la phase |
 |---|---|---|---|
 | **0 — Comptes** (toi) | Neon, Stripe prod, AWS (IAM, S3, SES + DNS), export CSV du Google Sheet | 1 à 2 h de clics + attente SES | — |
-| **1 — Socle** | Prisma + Neon, Better Auth, admin au segment secret, pré-inscriptions dans Neon (`/api/subscribe`), import du CSV, page Pré-inscrits + tableau de bord minimal, compte admin bootstrap | 1 session | `DATABASE_URL`, `DIRECT_DATABASE_URL`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `ADMIN_SLUG`, `SETUP_SECRET` |
+| **1 — Socle** | Prisma + Neon, Better Auth, admin au segment secret, pré-inscriptions dans Neon (`/api/subscribe`), import du CSV, page Pré-inscrits + tableau de bord minimal, compte admin bootstrap | 1 session | `DATABASE_URL`, `DIRECT_DATABASE_URL`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `ADMIN_SLUG` |
 | **2 — Catalogue & paiement** | Édition, courses, paliers, produits, codes promo (admin) ; tunnel d'inscription ; Stripe Checkout + webhook ; commandes et inscrits dans l'admin ; bouton « Ouvrir les inscriptions » + bandeau site | 2 à 3 sessions | `STRIPE_SECRET_KEY`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`, puis `STRIPE_WEBHOOK_SECRET` **après** le premier déploiement (le webhook a besoin de l'URL) |
 | **3 — Emails & médias** | SES (confirmation, lancement -10 %, campagnes/guides coureurs), médiathèque S3, visuels produits dans le tunnel | 1 à 2 sessions | `AWS_REGION`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `S3_BUCKET`, `S3_PUBLIC_BASE_URL`, `SES_FROM_EMAIL`, `SES_REPLY_TO` |
 | **4 — Pilotage & SEO** | Tableau de bord CA complet, exports, dossards, remboursements, pages SEO, OG image, JSON-LD enrichi, pages légales (CGV, confidentialité, règlement) | 1 à 2 sessions | — |
@@ -212,7 +212,6 @@ Poser chaque variable dans Vercel → Settings → Environment Variables, pour *
 | `BETTER_AUTH_SECRET` | `openssl rand -base64 32` | phase 1 |
 | `BETTER_AUTH_URL` | `https://www.semiquaisdeseine.fr` (Production) ; l'URL de la preview en Preview ; `http://localhost:3000` en Development | phase 1 |
 | `ADMIN_SLUG` | ex. `gestion-sqs-k7x2m9` (lettres et chiffres, pas de `/`) | phase 1 |
-| `SETUP_SECRET` | `openssl rand -hex 24` — sert une fois à créer le compte admin, puis à **supprimer** | phase 1 |
 | `STRIPE_SECRET_KEY` | `sk_live_…` en Production, `sk_test_…` en Preview/Development | phase 2 |
 | `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | `pk_live_…` / `pk_test_…` | phase 2 |
 | `STRIPE_WEBHOOK_SECRET` | `whsec_…` créé dans Stripe → Developers → Webhooks, endpoint `https://www.semiquaisdeseine.fr/api/stripe/webhook`, événements `checkout.session.completed`, `checkout.session.expired`, `charge.refunded` | phase 2, après le 1er déploiement |
@@ -229,7 +228,7 @@ Poser chaque variable dans Vercel → Settings → Environment Variables, pour *
 ## 11. Phase 0 — ce que tu fais toi, dans l'ordre
 
 1. **Neon** : nouveau projet `semi-quais-seine`, région Europe (Francfort), Postgres 17. Dans *Connection details*, copier la chaîne **Pooled connection** → `DATABASE_URL`, décocher *Pooled* → `DIRECT_DATABASE_URL`. Poser les deux dans Vercel maintenant.
-2. **Secrets** : dans ton terminal, `openssl rand -base64 32` → `BETTER_AUTH_SECRET` ; `openssl rand -hex 24` → `SETUP_SECRET` ; choisir `ADMIN_SLUG`. Poser les trois + `BETTER_AUTH_URL` dans Vercel.
+2. **Secrets** : dans ton terminal, `openssl rand -base64 32` → `BETTER_AUTH_SECRET` ; choisir `ADMIN_SLUG`. Poser les deux + `BETTER_AUTH_URL` dans Vercel.
 3. **Google Sheet** : Fichier → Télécharger → CSV, enregistrer sous `semi-quais-seine/scripts/preinscriptions.csv` (le fichier sera ignoré par git). Je m'occupe de l'import.
 4. **Stripe** : compte au nom de l'entité qui organise la course (c'est elle qui apparaît sur les reçus et qui doit figurer dans les CGV). Activer le compte (KYC, IBAN). Developers → API keys → copier `pk_live` et `sk_live` ; créer aussi un jeu de clés **test**. Dans *Settings → Emails*, activer « reçus réussis » si tu veux que Stripe envoie ses propres reçus. Poser les clés dans Vercel en phase 2 (live en Production, test en Preview).
 5. **AWS** : dans le compte PhotoRunning (ou un compte dédié), créer le bucket `semi-quais-seine-assets` (eu-west-3), l'utilisateur IAM `semi-quais-seine-app` avec une politique limitée au bucket + `ses:SendEmail`/`ses:SendRawEmail`, et lancer la vérification SES du domaine (§6) **dès maintenant** à cause du délai d'approbation. Les clés vont dans Vercel en phase 3.
@@ -239,9 +238,18 @@ Quand 1 et 2 sont faits, je lance la phase 1.
 
 ---
 
-## 12. Points à trancher (voir mes questions)
+## 12. Décisions prises le 16 octobre (réponses de Théo)
 
-- Nombre de coureurs par commande (1 seul, ou jusqu'à 5 pour « inscrire des amis »).
-- Justificatif à l'inscription : numéro de PPS (Parcours Prévention Santé, obligatoire pour les non-licenciés sur les courses à label FFA) / numéro de licence FFA / certificat — à collecter dans le tunnel, ou plus tard par email.
-- Entité juridique qui vend les dossards (pour Stripe, les CGV et les factures).
-- Date cible d'ouverture des inscriptions et prix des paliers (semi et 10 km).
+- **Jusqu'à 5 coureurs par commande** (un acheteur inscrit ses amis / sa famille en un paiement, un formulaire par coureur).
+- **Justificatif facultatif** dans le tunnel (PPS / licence FFA / certificat) : on peut payer sans ; relance par email et complétion depuis l'admin (`Registration.justificatifType` nullable).
+- **Paliers de prix** (par tranche de 500 dossards, puis tarif plein) :
+  - Semi-marathon : 47 € · 49 € · 52 € · 55 €
+  - 10 km : 24 € · 26 € · 29 € · 34 €
+  (créés par `npm run db:seed`, modifiables dans l'admin en phase 2)
+- **Phase 1 codée** le 16 octobre : schéma Prisma complet, Better Auth, admin au segment secret (login, tableau de bord, pré-inscrits + export CSV), `/api/subscribe` vers Neon, page `/confidentialite`, scripts `admin:create`, `import:prereg`, `db:seed`.
+- Le compte admin se crée avec `npm run admin:create -- email "mot de passe"` (aucune variable de bootstrap nécessaire).
+
+- **Entité qui vend les dossards : une association**, à créer. Le compte Stripe sera ouvert à son nom au dernier moment, juste avant l'ouverture des inscriptions ; d'ici là la phase 2b (tunnel + paiement) se code avec les clés de test.
+- **Phase 2a livrée** le 16 octobre : pages admin Édition & courses (paliers, jauges, bouton Ouvrir/Fermer), Produits, Codes promo, génération des codes -10 % ; mode « inscriptions ouvertes » sur le site.
+
+Reste à trancher : la date d'ouverture des inscriptions.
