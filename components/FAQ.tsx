@@ -7,7 +7,7 @@ import { useRef, useState } from "react";
 const faqs = [
   {
     question: "Qui peut participer au Semi des Quais de Seine ?",
-    answer: "La course est ouverte à tous les coureurs âgés de 18 ans et plus pour le semi-marathon, et 16 ans et plus pour le 10 km. Un certificat médical de moins d'un an sera requis lors de l'inscription.",
+    answer: "La course est ouverte à tous les coureurs âgés de 18 ans et plus pour le semi-marathon, et 16 ans et plus pour le 10 km. Une licence FFA, une attestation PPS (Parcours Prévention Santé) ou un certificat médical de moins d'un an vous sera demandé avant le retrait du dossard.",
   },
   {
     question: "Comment s'inscrire à la course ?",
@@ -27,7 +27,7 @@ const faqs = [
   },
   {
     question: "Comment accéder au départ depuis Paris ?",
-    answer: "Le départ est situé au Pont de Bezons, facilement accessible en Tramway depuis Paris. Des informations détaillées sur l'accès seront communiquées avec votre dossard.",
+    answer: "Le départ du semi-marathon est sur le parvis de la gare de Houilles – Carrières-sur-Seine, à 15 minutes de Paris Saint-Lazare (Transilien J et L) ou de La Défense (RER A). Le départ du 10 km est au Pecq, sur les bords de Seine, accessible en RER A (station Le Vésinet – Le Pecq) puis 15 minutes à pied. Depuis l'arrivée au port Seine Parisii, la gare de Cormeilles-en-Parisis (ligne J) est à 20 minutes à pied et des bus rejoignent Sartrouville (RER A). Les détails seront envoyés avec votre dossard.",
   },
   {
     question: "Y a-t-il un vestiaire ?",

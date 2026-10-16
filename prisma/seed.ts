@@ -27,8 +27,8 @@ const races = [
     slug: "10-km",
     name: "10 km",
     distanceKm: 10,
-    startTime: "09:30",
-    startPlace: "Bords de Seine",
+    startTime: null,
+    startPlace: "Le Pecq – stade, base nautique du Yacht Club",
     finishPlace: "Port de plaisance Seine Parisii, Cormeilles-en-Parisis",
     sortOrder: 2,
     tiers: [

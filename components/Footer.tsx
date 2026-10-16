@@ -90,9 +90,9 @@ export default function Footer() {
               <span className="font-semibold">Lieu</span>
             </div>
             <p className="text-gray-300">
-              Bezons - La Frette-sur-Seine
+              Départ gare de Houilles – Carrières-sur-Seine
               <br />
-              Quais de Seine, Île-de-France
+              Arrivée port Seine Parisii, Cormeilles-en-Parisis
             </p>
           </div>
           <div className="text-center md:text-left">

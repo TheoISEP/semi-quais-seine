@@ -36,7 +36,7 @@ const IconSVG = ({ icon }: { icon: string }) => {
 const reasons = [
   {
     title: "Un parcours d'exception",
-    description: "Parcours exceptionnel le long des quais de la Seine, de Bezons à La Frette-sur-Seine, traversant les plus beaux paysages de l'Île-de-France. Un tracé plat et rapide, idéal pour viser un record personnel.",
+    description: "Un parcours 100 % bords de Seine, de la gare de Houilles au nouveau port de plaisance Seine Parisii à Cormeilles-en-Parisis, par Chatou, Croissy, Le Pecq, Montesson et Sartrouville. Un tracé plat et rapide, idéal pour viser un record personnel.",
     icon: "running",
     image: "/images/parcours.jpg",
   },

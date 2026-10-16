@@ -12,9 +12,10 @@ const distances = [
   {
     name: "Semi-Marathon",
     distance: "21,1 km",
-    description: "Parcours exceptionnel le long des quais de la Seine. Départ du Pont de Bezons jusqu'à La Frette-sur-Seine, en passant par Carrières-sur-Seine, Chatou, Le Vésinet, Le Pecq, Sartrouville.",
+    description:
+      "Départ sur le parvis de la gare de Houilles – Carrières-sur-Seine (RER A, Transilien J et L), descente vers les quais de Chatou, puis les berges de la Seine : boucle de Croissy, Le Pecq, chemin de halage de Montesson, quais de Sartrouville. Arrivée au port de plaisance Seine Parisii, à Cormeilles-en-Parisis.",
     features: [
-      "Parcours plat et rapide le long de la Seine",
+      "Parcours plat et rapide, 100 % bords de Seine",
       "Ravitaillements tous les 5 km",
       "Médaille de finisher",
     ],
@@ -23,10 +24,11 @@ const distances = [
   {
     name: "10 kilomètres",
     distance: "10 km",
-    description: "Départ depuis Le Vésinet. Rejoignez l'arrivée à La Frette-sur-Seine par les magnifiques quais de la Seine.",
+    description:
+      "Départ au stade du Pecq, à la base nautique du Yacht Club, puis les berges de la Seine par Montesson et Sartrouville jusqu'à l'arrivée au port Seine Parisii : les dix derniers kilomètres du semi, pour découvrir les quais en douceur.",
     features: [
-      "Découverte des Quais de Seine",
-      "Ravitaillements à mi-parcours",
+      "100 % bords de Seine, sans difficulté",
+      "Ravitaillement à mi-parcours",
       "Médaille de finisher",
     ],
     color: "blue-light",
@@ -52,8 +54,8 @@ export default function Parcours() {
           </h2>
           <div className="w-24 md:w-32 h-1.5 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 md:mb-8"></div>
           <p className="text-lg md:text-xl lg:text-2xl text-gray-700 max-w-3xl mx-auto px-2 font-medium">
-            Un parcours exceptionnel le long des quais de la Seine, de Bezons jusqu&apos;à La Frette-sur-Seine, en passant par Carrières-sur-Seine, Chatou, Le Vésinet, Le Pecq et Sartrouville.
-            Choisissez votre distance et préparez-vous à vivre une expérience inoubliable.
+            De la gare de Houilles – Carrières-sur-Seine au port de plaisance Seine Parisii à Cormeilles-en-Parisis : un tracé plat qui longe la Seine
+            à travers Carrières-sur-Seine, Chatou, Croissy-sur-Seine, Le Pecq, Montesson et Sartrouville. Choisissez votre distance.
           </p>
         </motion.div>
 
@@ -119,7 +121,7 @@ export default function Parcours() {
           <h3 className="text-xl md:text-2xl font-bold text-navy-dark mb-6 text-center">
             Points clés du parcours
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="text-center">
               <div className="w-16 h-16 bg-gold rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -127,7 +129,8 @@ export default function Parcours() {
                 </svg>
               </div>
               <h4 className="font-bold text-navy-dark mb-2">Départ du semi-marathon</h4>
-              <p className="text-gray-700">Pont de Bezons</p>
+              <p className="text-gray-700">Gare de Houilles – Carrières-sur-Seine</p>
+              <p className="text-sm text-gray-500">RER A · Transilien J et L</p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-seine-blue rounded-full flex items-center justify-center mx-auto mb-4">
@@ -136,7 +139,8 @@ export default function Parcours() {
                 </svg>
               </div>
               <h4 className="font-bold text-navy-dark mb-2">Départ du 10 km</h4>
-              <p className="text-gray-700">Le Vésinet</p>
+              <p className="text-gray-700">Le Pecq, stade de la base nautique</p>
+              <p className="text-sm text-gray-500">Yacht Club du Pecq, bords de Seine</p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-navy-dark rounded-full flex items-center justify-center mx-auto mb-4">
@@ -146,7 +150,18 @@ export default function Parcours() {
                 </svg>
               </div>
               <h4 className="font-bold text-navy-dark mb-2">Arrivée</h4>
-              <p className="text-gray-700">La Frette-sur-Seine</p>
+              <p className="text-gray-700">Port de plaisance Seine Parisii</p>
+              <p className="text-sm text-gray-500">Cormeilles-en-Parisis</p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gold-dark rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8 7h8m-8 4h8m-6 8h4M6 3h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V5a2 2 0 012-2z" />
+                </svg>
+              </div>
+              <h4 className="font-bold text-navy-dark mb-2">Retour</h4>
+              <p className="text-gray-700">Gare de Cormeilles-en-Parisis (ligne J)</p>
+              <p className="text-sm text-gray-500">ou Sartrouville (RER A) en bus</p>
             </div>
           </div>
         </motion.div>
