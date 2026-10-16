@@ -3,8 +3,21 @@
 import { motion } from "framer-motion";
 import EmailForm from "./EmailForm";
 import Image from "next/image";
+import Link from "next/link";
 
-export default function Hero() {
+export type HeroRace = { name: string; priceCents: number | null; tierLabel: string | null; soldOut: boolean };
+
+function euros(cents: number) {
+  return new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(cents / 100);
+}
+
+export default function Hero({
+  registrationOpen = false,
+  races = [],
+}: {
+  registrationOpen?: boolean;
+  races?: HeroRace[];
+}) {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
@@ -66,7 +79,36 @@ export default function Hero() {
             className="w-full max-w-3xl mx-auto mb-12 md:mb-16 px-4"
             id="inscription"
           >
-            <EmailForm variant="hero" />
+            {registrationOpen ? (
+              <div className="flex flex-col items-center gap-4">
+                <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-sm font-semibold uppercase tracking-wider text-white backdrop-blur-sm">
+                  <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
+                  Les inscriptions sont ouvertes
+                </span>
+                <Link
+                  href="/inscription"
+                  className="inline-flex items-center justify-center rounded-2xl bg-gold px-12 py-4 text-lg font-bold text-navy-dark shadow-lg transition hover:bg-gold-light hover:shadow-xl md:px-16 md:py-5 md:text-xl"
+                >
+                  Je m&rsquo;inscris
+                </Link>
+                {races.length > 0 && (
+                  <p className="text-sm text-white/80 md:text-base">
+                    {races
+                      .map((r) =>
+                        r.soldOut || r.priceCents == null ? `${r.name} : complet` : `${r.name} ${euros(r.priceCents)}`,
+                      )
+                      .join(" · ")}
+                    {races.some((r) => r.tierLabel && !r.soldOut) && (
+                      <span className="block text-xs text-gold md:text-sm">
+                        Tarif « {races.find((r) => r.tierLabel && !r.soldOut)?.tierLabel} »
+                      </span>
+                    )}
+                  </p>
+                )}
+              </div>
+            ) : (
+              <EmailForm variant="hero" />
+            )}
           </motion.div>
 
           {/* Feature cards - Hidden on mobile */}

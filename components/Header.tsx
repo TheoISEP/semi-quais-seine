@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import EmailForm from "./EmailForm";
 
-export default function Header() {
+export default function Header({ registrationOpen = false }: { registrationOpen?: boolean }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -72,6 +72,14 @@ export default function Header() {
             </nav>
 
             {/* CTA Button Desktop */}
+            {registrationOpen ? (
+              <Link
+                href="/inscription"
+                className="hidden md:inline-flex items-center px-6 py-3.5 rounded-full font-semibold text-navy-dark bg-gold hover:bg-gold-light shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                S&rsquo;inscrire
+              </Link>
+            ) : (
             <motion.button
               onClick={() => setIsModalOpen(true)}
               whileHover={{ scale: 1.05 }}
@@ -82,7 +90,17 @@ export default function Header() {
               <span className="px-3 py-1.5 bg-navy-dark text-white rounded-full text-sm font-bold whitespace-nowrap">-10%</span>
             </motion.button>
 
+            )}
+
             {/* CTA Button Mobile */}
+            {registrationOpen ? (
+              <Link
+                href="/inscription"
+                className="md:hidden inline-flex items-center px-5 py-3 rounded-full font-semibold text-navy-dark bg-gold hover:bg-gold-light shadow-lg transition-all duration-300 text-sm"
+              >
+                S&rsquo;inscrire
+              </Link>
+            ) : (
             <motion.button
               onClick={() => setIsModalOpen(true)}
               whileTap={{ scale: 0.95 }}
@@ -92,6 +110,7 @@ export default function Header() {
               <span className="text-sm whitespace-nowrap">Pré-inscription</span>
               <span className="px-2.5 py-1 bg-navy-dark text-white rounded-full text-xs font-bold whitespace-nowrap">-10%</span>
             </motion.button>
+            )}
           </div>
         </div>
       </motion.header>
