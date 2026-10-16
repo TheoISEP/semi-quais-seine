@@ -1,0 +1,446 @@
+// Semi des Quais de Seine — schéma Prisma (Neon Postgres)
+// Montants en centimes d'euro (Int). Voir docs/PLAN-BILLETTERIE.md §3.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Better Auth (un seul compte admin, sans 2FA)
+// ---------------------------------------------------------------------------
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  emailVerified Boolean   @default(false)
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+
+  @@map("user")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  expiresAt DateTime
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id @default(cuid())
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+model RateLimit {
+  id          String  @id @default(cuid())
+  key         String? @unique
+  count       Int?
+  lastRequest BigInt?
+
+  @@map("rateLimit")
+}
+
+// ---------------------------------------------------------------------------
+// Pré-inscriptions (emails collectés avant l'ouverture, -10 %)
+// ---------------------------------------------------------------------------
+
+enum PreregistrationSource {
+  SITE
+  SHEET
+  MANUAL
+}
+
+model Preregistration {
+  id          String                @id @default(cuid())
+  email       String                @unique
+  source      PreregistrationSource @default(SITE)
+  consent     Boolean               @default(true)
+  promoCode   PromoCode?            @relation(fields: [promoCodeId], references: [id])
+  promoCodeId String?               @unique
+  codeSentAt  DateTime?
+  createdAt   DateTime              @default(now())
+
+  @@index([createdAt])
+}
+
+// ---------------------------------------------------------------------------
+// Édition, courses, paliers de prix, produits
+// ---------------------------------------------------------------------------
+
+model Edition {
+  id                    String    @id @default(cuid())
+  year                  Int       @unique
+  name                  String
+  raceDate              DateTime
+  /// Frais de gestion en pourcentage (ex. 6 = 6 %). 0 = désactivés.
+  feePercent            Decimal   @default(0) @db.Decimal(5, 2)
+  tshirtEnabled         Boolean   @default(false)
+  registrationOpen      Boolean   @default(false)
+  registrationOpenedAt  DateTime?
+  registrationClosesAt  DateTime?
+  /// Code promo -10 % des pré-inscrits : durée de validité en jours après l'ouverture.
+  preregCodeValidDays   Int       @default(15)
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  races                 Race[]
+  products              Product[]
+  orders                Order[]
+}
+
+model Race {
+  id            String         @id @default(cuid())
+  edition       Edition        @relation(fields: [editionId], references: [id], onDelete: Cascade)
+  editionId     String
+  slug          String
+  name          String
+  distanceKm    Decimal        @db.Decimal(5, 2)
+  startTime     String?
+  startPlace    String?
+  finishPlace   String?
+  description   String?
+  /// Nombre maximum de dossards (null = illimité).
+  capacity      Int?
+  sortOrder     Int            @default(0)
+  active        Boolean        @default(true)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  priceTiers    PriceTier[]
+  registrations Registration[]
+
+  @@unique([editionId, slug])
+}
+
+model PriceTier {
+  id            String         @id @default(cuid())
+  race          Race           @relation(fields: [raceId], references: [id], onDelete: Cascade)
+  raceId        String
+  label         String
+  /// Prix du dossard en centimes.
+  priceCents    Int
+  /// Nombre de dossards vendus à ce palier (null = sans limite de quantité).
+  maxQuantity   Int?
+  /// Fin de validité du palier (null = sans limite de date).
+  endsAt        DateTime?
+  sortOrder     Int            @default(0)
+  createdAt     DateTime       @default(now())
+  registrations Registration[]
+
+  @@index([raceId, sortOrder])
+}
+
+enum ProductType {
+  TSHIRT
+  PHOTO_PACK
+  OTHER
+}
+
+model Product {
+  id          String      @id @default(cuid())
+  edition     Edition     @relation(fields: [editionId], references: [id], onDelete: Cascade)
+  editionId   String
+  type        ProductType
+  name        String
+  description String?
+  priceCents  Int
+  /// Clé S3 du visuel (médiathèque).
+  imageKey    String?
+  /// Tailles proposées (t-shirt) : ["XS","S","M","L","XL","XXL"].
+  sizes       String[]    @default([])
+  stock       Int?
+  sortOrder   Int         @default(0)
+  active      Boolean     @default(true)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  orderItems  OrderItem[]
+}
+
+// ---------------------------------------------------------------------------
+// Codes promo
+// ---------------------------------------------------------------------------
+
+enum PromoType {
+  PERCENT
+  FIXED
+}
+
+enum PromoOrigin {
+  MANUAL
+  PREREG
+}
+
+model PromoCode {
+  id              String           @id @default(cuid())
+  code            String           @unique
+  type            PromoType
+  /// PERCENT : 10 = 10 %. FIXED : montant en centimes.
+  value           Int
+  maxUses         Int?
+  usedCount       Int              @default(0)
+  /// Si renseigné, le code n'est valable que pour cet email (acheteur).
+  boundEmail      String?
+  expiresAt       DateTime?
+  /// Ids des courses concernées ([] = toutes).
+  raceIds         String[]         @default([])
+  origin          PromoOrigin      @default(MANUAL)
+  active          Boolean          @default(true)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  orders          Order[]
+  preregistration Preregistration?
+
+  @@index([boundEmail])
+}
+
+// ---------------------------------------------------------------------------
+// Commandes et inscriptions
+// ---------------------------------------------------------------------------
+
+enum OrderStatus {
+  PENDING
+  PAID
+  REFUNDED
+  PARTIALLY_REFUNDED
+  CANCELLED
+  EXPIRED
+}
+
+model Order {
+  id                    String         @id @default(cuid())
+  /// Numéro lisible : SQS-2027-000123
+  number                String         @unique
+  edition               Edition        @relation(fields: [editionId], references: [id])
+  editionId             String
+  status                OrderStatus    @default(PENDING)
+  email                 String
+  firstName             String
+  lastName              String
+  phone                 String?
+  subtotalCents         Int
+  discountCents         Int            @default(0)
+  feeCents              Int            @default(0)
+  totalCents            Int
+  refundedCents         Int            @default(0)
+  currency              String         @default("eur")
+  promoCode             PromoCode?     @relation(fields: [promoCodeId], references: [id])
+  promoCodeId           String?
+  stripeSessionId       String?        @unique
+  stripePaymentIntentId String?        @unique
+  paidAt                DateTime?
+  expiresAt             DateTime?
+  createdAt             DateTime       @default(now())
+  updatedAt             DateTime       @updatedAt
+  registrations         Registration[]
+  items                 OrderItem[]
+
+  @@index([status, paidAt])
+  @@index([email])
+}
+
+enum Gender {
+  F
+  M
+  X
+}
+
+enum JustificatifType {
+  PPS
+  LICENCE_FFA
+  CERTIFICAT
+}
+
+enum RegistrationStatus {
+  ACTIVE
+  CANCELLED
+  TRANSFERRED
+}
+
+model Registration {
+  id                    String             @id @default(cuid())
+  order                 Order              @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId               String
+  race                  Race               @relation(fields: [raceId], references: [id])
+  raceId                String
+  priceTier             PriceTier?         @relation(fields: [priceTierId], references: [id])
+  priceTierId           String?
+  unitPriceCents        Int
+  status                RegistrationStatus @default(ACTIVE)
+  firstName             String
+  lastName              String
+  birthDate             DateTime
+  gender                Gender
+  email                 String
+  phone                 String?
+  nationality           String?            @default("FR")
+  club                  String?
+  city                  String?
+  postalCode            String?
+  emergencyContactName  String?
+  emergencyContactPhone String?
+  tshirtSize            String?
+  /// Facultatif à l'inscription, complété ensuite.
+  justificatifType      JustificatifType?
+  justificatifNumber    String?
+  justificatifValidated Boolean            @default(false)
+  bibNumber             Int?
+  notes                 String?
+  createdAt             DateTime           @default(now())
+  updatedAt             DateTime           @updatedAt
+  items                 OrderItem[]
+
+  @@index([raceId, status])
+  @@index([email])
+  @@index([bibNumber])
+}
+
+model OrderItem {
+  id             String        @id @default(cuid())
+  order          Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId        String
+  product        Product       @relation(fields: [productId], references: [id])
+  productId      String
+  /// Coureur concerné (t-shirt à sa taille), null si option globale.
+  registration   Registration? @relation(fields: [registrationId], references: [id], onDelete: SetNull)
+  registrationId String?
+  quantity       Int           @default(1)
+  unitPriceCents Int
+  size           String?
+  createdAt      DateTime      @default(now())
+
+  @@index([orderId])
+}
+
+// ---------------------------------------------------------------------------
+// Médiathèque (S3), emails (SES), événements Stripe
+// ---------------------------------------------------------------------------
+
+enum AssetCategory {
+  ADS
+  SITE
+  PRODUCT
+  GUIDE
+  OTHER
+}
+
+model Asset {
+  id         String        @id @default(cuid())
+  key        String        @unique
+  url        String
+  filename   String
+  mimeType   String
+  sizeBytes  Int
+  width      Int?
+  height     Int?
+  category   AssetCategory @default(OTHER)
+  tags       String[]      @default([])
+  createdAt  DateTime      @default(now())
+
+  @@index([category, createdAt])
+}
+
+enum CampaignAudience {
+  ALL_PAID
+  RACE
+  PREREG
+  TEST
+}
+
+enum CampaignStatus {
+  DRAFT
+  SENDING
+  SENT
+  FAILED
+}
+
+model EmailCampaign {
+  id         String           @id @default(cuid())
+  name       String
+  subject    String
+  /// Corps en markdown ; variables {{prenom}}, {{nom}}, {{course}}, {{dossard}}.
+  body       String
+  audience   CampaignAudience @default(ALL_PAID)
+  raceId     String?
+  status     CampaignStatus   @default(DRAFT)
+  sentAt     DateTime?
+  sentCount  Int              @default(0)
+  errorCount Int              @default(0)
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+  logs       EmailLog[]
+}
+
+enum EmailType {
+  PREREG_CONFIRMATION
+  ORDER_CONFIRMATION
+  LAUNCH_PROMO
+  CAMPAIGN
+  REFUND
+  OTHER
+}
+
+model EmailLog {
+  id           String         @id @default(cuid())
+  to           String
+  type         EmailType
+  subject      String
+  campaign     EmailCampaign? @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+  campaignId   String?
+  sesMessageId String?
+  status       String         @default("sent")
+  error        String?
+  createdAt    DateTime       @default(now())
+
+  @@index([to])
+  @@index([campaignId])
+  @@index([createdAt])
+}
+
+model StripeEvent {
+  id          String   @id
+  type        String
+  processedAt DateTime @default(now())
+}
