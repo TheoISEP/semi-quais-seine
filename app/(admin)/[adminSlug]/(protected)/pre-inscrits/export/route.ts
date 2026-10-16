@@ -18,14 +18,23 @@ export async function GET(
   const rows = await db.preregistration.findMany({
     where: q ? { email: { contains: q, mode: "insensitive" } } : {},
     orderBy: { createdAt: "desc" },
-    select: { email: true, source: true, createdAt: true, codeSentAt: true },
+    select: { email: true, source: true, createdAt: true, codeSentAt: true, promoCode: { select: { code: true, expiresAt: true } } },
   });
 
   const escape = (v: string) => `"${v.replace(/"/g, '""')}"`;
   const lines = [
-    ["email", "source", "date", "code_envoye_le"].join(";"),
+    ["email", "source", "date", "code_promo", "code_expire_le", "code_envoye_le"].join(";"),
     ...rows.map((r) =>
-      [r.email, r.source, r.createdAt.toISOString(), r.codeSentAt?.toISOString() ?? ""].map(escape).join(";"),
+      [
+        r.email,
+        r.source,
+        r.createdAt.toISOString(),
+        r.promoCode?.code ?? "",
+        r.promoCode?.expiresAt?.toISOString() ?? "",
+        r.codeSentAt?.toISOString() ?? "",
+      ]
+        .map(escape)
+        .join(";"),
     ),
   ];
   const body = "﻿" + lines.join("\r\n");

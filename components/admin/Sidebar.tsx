@@ -23,9 +23,9 @@ type Item = { label: string; href: string; icon: LucideIcon; soon?: boolean };
 const items: Item[] = [
   { label: "Tableau de bord", href: "", icon: BarChart3 },
   { label: "Pré-inscrits", href: "/pre-inscrits", icon: Mails },
-  { label: "Édition & courses", href: "/edition", icon: Flag, soon: true },
-  { label: "Produits", href: "/produits", icon: Package, soon: true },
-  { label: "Codes promo", href: "/codes-promo", icon: Ticket, soon: true },
+  { label: "Édition & courses", href: "/edition", icon: Flag },
+  { label: "Produits", href: "/produits", icon: Package },
+  { label: "Codes promo", href: "/codes-promo", icon: Ticket },
   { label: "Commandes", href: "/commandes", icon: Receipt, soon: true },
   { label: "Inscrits", href: "/inscrits", icon: Users, soon: true },
   { label: "Médiathèque", href: "/mediatheque", icon: ImageIcon, soon: true },

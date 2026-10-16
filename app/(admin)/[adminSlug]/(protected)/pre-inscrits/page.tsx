@@ -3,6 +3,8 @@ import { Download, Search } from "lucide-react";
 import type { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
 import { formatDate } from "@/lib/utils";
+import { generatePreregCodes } from "@/lib/actions/admin";
+import { ConfirmButton } from "@/components/admin/forms";
 
 export const metadata = { title: "Pré-inscrits" };
 
@@ -30,15 +32,23 @@ export default async function PreregistrationsPage({
     ? { email: { contains: query, mode: "insensitive" } }
     : {};
 
-  const [total, rows] = await Promise.all([
+  const [total, rows, withoutCode] = await Promise.all([
     db.preregistration.count({ where }),
     db.preregistration.findMany({
       where,
       orderBy: { createdAt: "desc" },
       skip: (page - 1) * PAGE_SIZE,
       take: PAGE_SIZE,
-      select: { id: true, email: true, source: true, createdAt: true, codeSentAt: true },
+      select: {
+        id: true,
+        email: true,
+        source: true,
+        createdAt: true,
+        codeSentAt: true,
+        promoCode: { select: { code: true, usedCount: true, expiresAt: true } },
+      },
     }),
+    db.preregistration.count({ where: { promoCodeId: null } }),
   ]);
   const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
   const base = `/${adminSlug}/pre-inscrits`;
@@ -53,6 +63,14 @@ export default async function PreregistrationsPage({
             l&rsquo;ouverture des inscriptions.
           </p>
         </div>
+        <div className="flex flex-wrap items-center gap-2">
+          <ConfirmButton
+            action={generatePreregCodes}
+            confirmLabel={`Générer ${withoutCode} code(s) ?`}
+            variant="primary"
+          >
+            Générer les codes -10 % ({withoutCode} sans code)
+          </ConfirmButton>
         <a
           href={`${base}/export${query ? `?q=${encodeURIComponent(query)}` : ""}`}
           className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-50"
@@ -60,6 +78,7 @@ export default async function PreregistrationsPage({
           <Download className="h-4 w-4" />
           Exporter en CSV
         </a>
+        </div>
       </div>
 
       <form className="flex max-w-md items-center gap-2" action={base}>
@@ -105,7 +124,19 @@ export default async function PreregistrationsPage({
                 <td className="px-4 py-2.5 text-slate-600">{formatDate(r.createdAt, true)}</td>
                 <td className="px-4 py-2.5 text-slate-600">{sourceLabel[r.source] ?? r.source}</td>
                 <td className="px-4 py-2.5 text-slate-600">
-                  {r.codeSentAt ? `Envoyé le ${formatDate(r.codeSentAt)}` : "—"}
+                  {r.promoCode ? (
+                    <span className="font-mono text-xs">
+                      {r.promoCode.code}
+                      {r.promoCode.usedCount > 0 && <span className="ml-1 text-emerald-700">utilisé</span>}
+                      {r.codeSentAt ? (
+                        <span className="ml-1 text-slate-400">envoyé le {formatDate(r.codeSentAt)}</span>
+                      ) : (
+                        <span className="ml-1 text-slate-400">non envoyé</span>
+                      )}
+                    </span>
+                  ) : (
+                    "—"
+                  )}
                 </td>
               </tr>
             ))}
