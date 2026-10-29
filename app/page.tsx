@@ -28,10 +28,10 @@ export default async function Home() {
     "@type": "SportsEvent",
     name: "Semi des Quais de Seine",
     description:
-      "Première édition du Semi des Quais de Seine le dimanche 28 février 2027 : semi-marathon 21,1 km et 10 km le long de la Seine, de Houilles à Cormeilles-en-Parisis.",
+      "Première édition du Semi des Quais de Seine le dimanche 29 août 2027 : semi-marathon 21,1 km et 10 km le long de la Seine, de Houilles à Cormeilles-en-Parisis.",
     eventStatus: "https://schema.org/EventScheduled",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-    startDate: "2027-02-28T09:00:00+01:00",
+    startDate: "2027-08-29T09:00:00+02:00",
     image: [`${siteUrl}/images/logo.png`],
     url: siteUrl,
     location: {

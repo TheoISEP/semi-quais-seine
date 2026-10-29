@@ -5,7 +5,7 @@
 import "../scripts/load-env";
 import { db } from "../lib/db";
 
-const RACE_DATE = new Date("2027-02-28T09:00:00+01:00");
+const RACE_DATE = new Date("2027-08-29T09:00:00+02:00");
 
 const races = [
   {

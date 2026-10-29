@@ -22,14 +22,14 @@ export default function Footer() {
               className="mb-4 opacity-80"
             />
             <p className="text-gray-300 mb-4">
-              La première édition du Semi des Quais de Seine aura lieu le dimanche 28 février 2027.
+              La première édition du Semi des Quais de Seine aura lieu le dimanche 29 août 2027.
               Une course exceptionnelle le long de la Seine.
             </p>
             <div className="flex items-center gap-2 text-gold">
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
               </svg>
-              <span>28 février 2027</span>
+              <span>29 août 2027</span>
             </div>
           </div>
 
@@ -103,7 +103,7 @@ export default function Footer() {
               <span className="font-semibold">Date</span>
             </div>
             <p className="text-gray-300">
-              Dimanche 28 février 2027
+              Dimanche 29 août 2027
               <br />
               Départ à 9h00
             </p>
@@ -137,7 +137,7 @@ export default function Footer() {
                 Politique de confidentialité
               </Link>
               <span className="mx-2">•</span>
-              Première édition • 28 février 2027
+              Première édition • 29 août 2027
             </p>
           </div>
         </div>

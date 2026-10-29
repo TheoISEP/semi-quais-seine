@@ -9,7 +9,7 @@ import { formatEuros } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Inscription",
   description:
-    "Inscrivez-vous au Semi des Quais de Seine 2027 : semi-marathon 21,1 km ou 10 km le long de la Seine, le dimanche 28 février 2027.",
+    "Inscrivez-vous au Semi des Quais de Seine 2027 : semi-marathon 21,1 km ou 10 km le long de la Seine, le dimanche 29 août 2027.",
   alternates: { canonical: "/inscription" },
 };
 
@@ -23,7 +23,7 @@ export default async function InscriptionPage() {
       <main className="min-h-screen bg-white">
         <section className="bg-navy-dark pb-12 pt-32 text-white md:pb-16 md:pt-40">
           <div className="container mx-auto px-4">
-            <p className="mb-3 text-sm uppercase tracking-widest text-gold">Dimanche 28 février 2027</p>
+            <p className="mb-3 text-sm uppercase tracking-widest text-gold">Dimanche 29 août 2027</p>
             <h1 className="text-4xl md:text-5xl">{open ? "Inscription" : "Inscriptions bientôt ouvertes"}</h1>
             <p className="mt-4 max-w-2xl text-gray-300">
               {open

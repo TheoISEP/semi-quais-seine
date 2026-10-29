@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     template: "%s | Semi des Quais de Seine",
   },
   description:
-    "Le Semi des Quais de Seine arrive le 28 février 2027 : semi-marathon 21,1 km et 10 km le long de la Seine, de la gare de Houilles au port Seine Parisii à Cormeilles-en-Parisis. Inscrivez-vous pour être informé et profiter de -10 %.",
+    "Le Semi des Quais de Seine arrive le 29 août 2027 : semi-marathon 21,1 km et 10 km le long de la Seine, de la gare de Houilles au port Seine Parisii à Cormeilles-en-Parisis. Inscrivez-vous pour être informé et profiter de -10 %.",
   keywords: [
     "semi des quais de seine",
     "semi marathon des quais de seine",
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Semi des Quais de Seine 2027",
     description:
-      "Semi-marathon 21,1 km et 10 km le long des quais de la Seine, de Houilles à Cormeilles-en-Parisis, le 28 février 2027. Inscriptions et offre de lancement -10 %.",
+      "Semi-marathon 21,1 km et 10 km le long des quais de la Seine, de Houilles à Cormeilles-en-Parisis, le 29 août 2027. Inscriptions et offre de lancement -10 %.",
     type: "website",
     locale: "fr_FR",
     url: "/",

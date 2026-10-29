@@ -78,7 +78,7 @@ export default function Sidebar({ slug }: { slug: string }) {
           );
         })}
       </nav>
-      <p className="px-4 py-3 text-[11px] text-white/40">Course le 28 février 2027</p>
+      <p className="px-4 py-3 text-[11px] text-white/40">Course le 29 août 2027</p>
     </aside>
   );
 }

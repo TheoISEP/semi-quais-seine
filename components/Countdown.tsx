@@ -10,7 +10,7 @@ export default function Countdown() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   // Target date: February 28, 2027
-  const targetDate = new Date("2027-02-28T09:00:00").getTime();
+  const targetDate = new Date("2027-08-29T09:00:00").getTime();
 
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
@@ -108,11 +108,11 @@ export default function Countdown() {
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
               </svg>
-              <span>Dimanche 28 février 2027 • Départ 9h00</span>
+              <span>Dimanche 29 août 2027 • Départ 9h00</span>
             </p>
           </div>
           <p className="text-gray-300 max-w-2xl mx-auto">
-            Rendez-vous le dimanche 28 février 2027 sur les quais de Seine.
+            Rendez-vous le dimanche 29 août 2027 sur les quais de Seine.
             Inscrivez-vous à notre newsletter pour être informé en priorité de l&apos;ouverture des inscriptions !
           </p>
         </motion.div>

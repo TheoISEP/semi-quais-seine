@@ -57,7 +57,7 @@ export default function Hero({
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-2xl md:text-4xl lg:text-5xl text-white font-bold mb-6 md:mb-8 uppercase tracking-wider font-bebas"
           >
-            <span className="text-gradient-gold">Première édition</span> • 28 février 2027
+            <span className="text-gradient-gold">Première édition</span> • 29 août 2027
           </motion.p>
 
           {/* Description */}
